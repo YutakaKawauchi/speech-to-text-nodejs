@@ -35,6 +35,9 @@ if (process.env.SPEECH_TO_TEXT_IAM_APIKEY && process.env.SPEECH_TO_TEXT_IAM_APIK
   tokenManager = new IamTokenManagerV1.IamTokenManagerV1({
     iamApikey: process.env.SPEECH_TO_TEXT_IAM_APIKEY || '<iam_apikey>',
     iamUrl: process.env.SPEECH_TO_TEXT_IAM_URL || 'https://iam.bluemix.net/identity/token',
+    headers: {
+      'X-Watson-Learning-Opt-Out': 'true',
+    },
   });
 } else {
   instanceType = 'cf';
@@ -42,6 +45,9 @@ if (process.env.SPEECH_TO_TEXT_IAM_APIKEY && process.env.SPEECH_TO_TEXT_IAM_APIK
     username: process.env.SPEECH_TO_TEXT_USERNAME || '<username>',
     password: process.env.SPEECH_TO_TEXT_PASSWORD || '<password>',
     url: serviceUrl,
+    headers: {
+      'X-Watson-Learning-Opt-Out': 'true',
+    },
   });
   tokenManager = new AuthorizationV1(speechService.getCredentials());
 }
